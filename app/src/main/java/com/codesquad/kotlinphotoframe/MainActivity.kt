@@ -36,57 +36,53 @@ class MainActivity : AppCompatActivity() {
         photoFrameTv.text = "${name}의 사진액자"
         val addPhotoBtn = findViewById<Button>(R.id.btn_photoframe)
         val imageView = findViewById<ImageView>(R.id.iv_photoFrame_photoGallery)
-        addButtonEventForImageChange(addPhotoBtn, imageView)
+        initImageChangeEventListener(addPhotoBtn, imageView)
     }
 
 
-    fun addButtonEventForImageChange(addPhotoBtn: Button, imageView: ImageView) {
+    fun initImageChangeEventListener(addPhotoBtn: Button, imageView: ImageView) {
         addPhotoBtn.setOnClickListener {
-            var range = (1..22)
+            val range = (1..22)
             val imgNum = range.random()
-            val bitmapImg = getImgFileAndTransFormToBitMap(imgNum) ?: return@setOnClickListener
+            val bitmapImg = getBitMapImage(imgNum) ?: return@setOnClickListener
             imageView.setImageBitmap(bitmapImg)
             imageView.scaleType = ImageView.ScaleType.FIT_XY
         }
     }
 
 
-    fun changeActivityAndMakeSnackBar(addPhotoBtn: Button) {
+    fun initActivityChange(addPhotoBtn: Button) {
         addPhotoBtn.text = "다음"
-        val const_layout = findViewById<ConstraintLayout>(R.id.const_layout)
-        var getResult =
+        val getResult =
             registerForActivityResult(ActivityResultContracts.StartActivityForResult()) {
                 if (it.resultCode == RESULT_OK) {
                     var message = it.data?.getStringExtra("message").toString()
-                    Snackbar.make(const_layout, "${message}", Snackbar.LENGTH_LONG).show()
+                    Snackbar.make(findViewById<ConstraintLayout>(R.id.const_layout), "${message}", Snackbar.LENGTH_LONG).show()
                 }
             }
         addPhotoBtn.setOnClickListener {
-            var intent: Intent = Intent(this, TargetActivity::class.java)
+            val intent: Intent = Intent(this, TargetActivity::class.java)
             getResult.launch(intent)
         }
     }
 
-    fun addButtonEventAndMakeSnackBar(addPhotoBtn: Button) {
-        val const_layout = findViewById<ConstraintLayout>(R.id.const_layout)
+    fun initSnackBarEventListener(addPhotoBtn: Button) {
         addPhotoBtn.setOnClickListener {
-            var snackBar = Snackbar.make(const_layout, "사진을 불러옵니다", Snackbar.LENGTH_LONG)
+            val snackBar = Snackbar.make(findViewById<ConstraintLayout>(R.id.const_layout), "사진을 불러옵니다", Snackbar.LENGTH_LONG)
             snackBar.show()
         }
     }
 
-    fun changeTextViewAttribute(photoFrameTv: TextView) {
+    fun setTextViewAttribute(photoFrameTv: TextView) {
         photoFrameTv.setTextColor(Color.parseColor("#FF000000"))
         photoFrameTv.setBackgroundColor(Color.parseColor("#FF000000"))
         photoFrameTv.setTextSize(Dimension.SP, 18F)
     }
 
-    fun getImgFileAndTransFormToBitMap(imgNum: Int): Bitmap? {
+    fun getBitMapImage(imgNum: Int): Bitmap? {
         try {
-            var assetManager = this.assets
-
-            var imageFileName: String = ""
-            imageFileName = if (imgNum < 10) "0${imgNum}" else "$imgNum"
+            val assetManager = this.assets
+            val imageFileName: String = if (imgNum < 10) "0${imgNum}" else "$imgNum"
             return BitmapFactory.decodeStream(assetManager.open("${imageFileName}.jpg"))
         } catch (e: IOException) {
             e.printStackTrace()
