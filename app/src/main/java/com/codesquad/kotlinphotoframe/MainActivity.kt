@@ -55,8 +55,8 @@ class MainActivity : AppCompatActivity() {
     fun getBitMapImage(imgNum: Int): Bitmap? {
         try {
             val assetManager = this.assets
-            val imageFileName: String = if (imgNum < 10) "0${imgNum}" else "$imgNum"
-            return BitmapFactory.decodeStream(assetManager.open("${imageFileName}.jpg"))
+            val imageFileName= String.format("%02d.jpg", imgNum)
+            return BitmapFactory.decodeStream(assetManager.open("$imageFileName"))
         } catch (e: IOException) {
             e.printStackTrace()
         }

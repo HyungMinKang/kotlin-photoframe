@@ -173,9 +173,23 @@
 * action
   * ACTION_PICK :데이터로부터 아이템을 선택하고 선택한 아이템을 리턴시키라는 액션
   * ACTION_GET_CONTENT:  사용자가 선택한 특별한 종류의 데이터 선택과 데이터의 리턴을 원하는 액션
+  
+## Floating Action Point
+* 플로팅 액션 버튼(Floating Action Button)은 화면에 떠있는 원형의 버튼으로 머터리얼 디자인에서 자주 사용되는 기본 위젯입니다.
+* 화면 위에 위치가 고정된 버튼입니다. 스크롤 바를 내리든, 다른 일을 하든 설정된 위치에 고정되어있습니다
+* 플로팅 액션 버튼(Floating Action Button)을 구현하는 방법은 일반 버튼 위젯을 구현하는 방법과 비슷합니다. 다만 기본적으로  ImageView를 상속받는 위젯이기 때문에 버튼에 표현할 아이콘을 지정할 수 있다
+* 버튼을 클릭하였을 때 서브 버튼이 나열이 되도록 구현이 가능하다
+* 일반 버튼처럼 사용자가 발생한 클릭 이벤트에 대한 처리도 가능하다
+* android : srcCompat	FAB에 표시되는 Icon을 지정합니다.
+* fabSize
+  * fab의 size를 지정합니다. auto, mini, normal 값들 중 하나를 사용할 수 있습니다. 
+  * auto로 지정하게 될 경우 화면 사이즈에 맞추어 자동으로 size가 지정됩니다.
+  * 소스 상에서는 setSize() 함수를 통해 지정이 가능합니다.
 
-
-
-
-
-
+## AppCompatActivity
+* AppCompatActivity 클래스는 안드로이드의 하위버전을 지원하는 액티비티이다
+* 과거 안드로이드 버전과의 호환성을 유지하면서 새로운 버전의 기능도 사용할 수 있도록 만든 액티비티 클래스다.
+* 안드로이드 6.0(마시멜로)의 새로운 기능(Material Design 관련)도 많은 부분 구현하고 있다. 이런 이유로 안드로이드 스튜디오 1.5 버전부터는 프로젝트 생성 시에 액티비티를 AppCompatActivity 클래스의 서브 클래스로 생성해준다.
+* setSupportActionBar(Toolbar) API를 사용하여 action item, navigation mode 등을 포함하는 action bar를 지원합니다.
+* Theme.AppCompat.DayNight 테마를 사용하며 AppCompatDelegate.setDefaultNightMode(int) API를 사용하여 다크 모드를 지원합니다.
+* getDrawerToggleDelegate() API를 사용하여 DrawerLayout과 통합합니다.
